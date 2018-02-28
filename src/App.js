@@ -10,7 +10,6 @@ import HomePage from './component/HomePage';
 import Calendar from './component/Calendar';
 import WrappedMyCVForm from './component/Mycv';
 
-
 const routes=(
     <HashRouter>
       <Switch>

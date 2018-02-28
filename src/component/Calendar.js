@@ -12,7 +12,7 @@ const text = (
     Known for its loyalty and faithfulness,
   </p>
 );
-console.log(datepanel)
+
 class Calendar extends React.Component {
 
   constructor(props) {
