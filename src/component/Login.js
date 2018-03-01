@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form,Col, Input, Button, notification } from 'antd';
 import {Link} from 'react-router-dom';
- import { createStore} from 'redux';
+import {store} from '../store/store';
+import {addUserDetail} from '../action/action'
 
 const FormItem = Form.Item;
 
@@ -11,23 +12,7 @@ class NormalLoginForm extends React.Component {
    this.props.form.validateFields((err, values) => {
      if (!err) {
        this.props.history.push('/homepage');
-
-
-       const reducer = function(state, action) {
-         if (action.type == "DATA"){
-           return state = action.payload;
-         }
-         return state;
-       }
-
-       const store = createStore(reducer, 0);
-
-       store.subscribe(() => {
-         console.log("User data : ",store.getState())
-       })
-
-       store.dispatch({type:"DATA", payload:values})
-
+       store.dispatch(addUserDetail(values));
        notification.open({
          message: 'Successfully Logged In',
          description: 'You are successfully Logged in.',
