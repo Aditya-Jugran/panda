@@ -5,3 +5,17 @@ userdetail:{
     password
 }
 });
+
+export const usersignalmentDetails=({Distance,Location,Pension,Qualification,Working_Shift,facilities}={},driving_license,own_car)=>({
+type:'SINGNALMENT-FORM',
+singnalmentDetail:{
+  Distance,
+  Location,
+  Pension,
+  Qualification,
+  Working_Shift,
+  facilities,
+  driving_license,
+  own_car,
+}
+});

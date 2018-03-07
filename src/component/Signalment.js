@@ -2,20 +2,24 @@ import React from 'react';
 import style from 'antd/dist/antd.css';
 import {Form, Col,Select, notification, Input, Switch, Button,Icon } from 'antd';
 import {BrowserRouter,Route,Link} from 'react-router-dom';
+import {store} from '../store/store';
+import {usersignalmentDetails} from '../action/action'
 
-
+let driving_license=false,own_car=false;
 class SingnalmentForm extends React.Component {
 
-  onChange = (checked)=> {
-    console.log(`switch to ${checked}`);
+  onChange = (defauUnChecked)=> {
+    driving_license = defauUnChecked;
+  }
+  onChangecar = (check)=> {
+    own_car =  check;
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-
       if (!err) {
-        console.log('Received values of form: ', values);
+         store.dispatch(usersignalmentDetails(values,driving_license,own_car));
         notification.open({
           message: 'Successfully Updated',
           description: 'Your information has been successfully updated.',
@@ -53,7 +57,7 @@ class SingnalmentForm extends React.Component {
         </FormItem>
         <FormItem>
           {getFieldDecorator('Qualification', {
-            rules: [{ required: true, message: 'Please select your Qualifications!' }],
+            rules: [{ required: true, initialValue:'Value#2',message: 'Please select your Qualifications!' }],
           })(
             <Select
               placeholder="Additional Qulifications"
@@ -112,11 +116,11 @@ class SingnalmentForm extends React.Component {
 
         <FormItem>
         <h4 id="signalment-h4">Driver License</h4>
-          <Switch  id="signalment-Switch" defaultUnChecked onChange={this.onChange} />
+          <Switch  id="signalment-Switch" name="driving_license" onChange={this.onChange} />
         </FormItem>
         <FormItem>
         <h4 id="signalment-h4">Own Car</h4>
-          <Switch id="signalment-Switch" defaultUnChecked onChange={this.onChange} />
+          <Switch id="signalment-Switch" name="own_car" onChange={this.onChangecar} />
         </FormItem>
         <FormItem>
           <Button htmlType="submit" id="register-form-button" className="login-form-button">

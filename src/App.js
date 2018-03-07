@@ -22,7 +22,6 @@ const routes=(
          <Route path="/signalment" component={WrappedSignalmentForm}/>
          <Route path="/mycv" component={WrappedMyCVForm}/>
          <Route component={error}/>
-
       </Switch>
     </HashRouter>
 );
