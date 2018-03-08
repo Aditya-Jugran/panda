@@ -30,6 +30,7 @@ class MyCVForm extends React.Component {
         notification.open({
           message: 'Successfully Updated',
           description: 'Your information has been successfully updated.',
+          duration:1
         });
       }
     });
