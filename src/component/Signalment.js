@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import style from 'antd/dist/antd.css';
 import {Form, Col,Select, notification, Input, Switch, Button,Icon } from 'antd';
 import {BrowserRouter,Route,Link} from 'react-router-dom';
-import {store} from '../store/store';
 import {usersignalmentDetails} from '../action/action'
 
 class SignalmentForm extends React.Component {
@@ -29,10 +29,13 @@ class SignalmentForm extends React.Component {
   }
 
   handleSubmit = (e) => {
+
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-         store.dispatch(usersignalmentDetails(values,this.state.driving_license,this.state.own_car));
+        let driving_license =this.state.driving_license?this.state.driving_license:false;
+        let own_car =this.state.own_car?this.state.own_car:false;
+        this.props.onusersignalmentDetails(values,driving_license,own_car);
         notification.open({
           message: 'Successfully Updated',
           description: 'Your information has been successfully updated.',
@@ -153,7 +156,14 @@ class SignalmentForm extends React.Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onusersignalmentDetails: (values,driving_license,own_car) => {
+            dispatch(usersignalmentDetails(values,driving_license,own_car))
+        },
 
+    }
+};
 const mapStateToProps=(state)=>{
     return {
         signalmentDetails:state.signalmentDetails
@@ -165,6 +175,6 @@ const WrappedSignalmentForm = Form.create()(SignalmentForm);
 // export default WrappedSingnalmentForm;
 
 
-const connectList=connect(mapStateToProps)(WrappedSignalmentForm);
+const connectList=connect(mapStateToProps,mapDispatchToProps)(WrappedSignalmentForm);
 
 export default connectList;
